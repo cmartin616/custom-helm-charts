@@ -2,9 +2,26 @@ apiVersion: v1
 entries:
   homechart:
   - apiVersion: v2
-    created: "2024-10-05T14:44:28.942079-04:00"
+    created: "2024-10-05T17:20:28.9888141-04:00"
     description: Run your household with one simple app. Built by families, for families.
-    digest: bfad6d1d6e94788b7acfe9e43624c427e71ee37c86897d6427f0be698264abaf
+    digest: b0fa07e0d677f2c040d48cd01675b9ab186ef388653176faadf222144c44e790
+    home: https://homechart.app
+    icon: https://homechart.app/homechart.png
+    keywords:
+    - home
+    - homechart
+    - productivity
+    - web
+    name: homechart
+    sources:
+    - https://github.com/candiddev/homechart
+    urls:
+    - homechart-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    created: "2024-10-05T17:20:28.9883072-04:00"
+    description: Run your household with one simple app. Built by families, for families.
+    digest: 7f59cda63e0a8dbc7511f60ae538abc9de547bd1cf2223121e5e079ea4828fd3
     home: https://homechart.app
     icon: https://homechart.app/homechart.png
     keywords:
@@ -19,7 +36,7 @@ entries:
     - homechart-1.0.2.tgz
     version: 1.0.2
   - apiVersion: v2
-    created: "2024-10-05T14:44:28.9410785-04:00"
+    created: "2024-10-05T17:20:28.9878019-04:00"
     description: Run your household with one simple app. Built by families, for families.
     digest: 2786f36b94c7adcf8a455978fe8348fd46df08d741c8c4ec09b656e31cabdcd0
     home: https://homechart.app
@@ -35,4 +52,4 @@ entries:
     urls:
     - homechart-1.0.1.tgz
     version: 1.0.1
-generated: "2024-10-05T14:44:28.9410785-04:00"
+generated: "2024-10-05T17:20:28.9867837-04:00"

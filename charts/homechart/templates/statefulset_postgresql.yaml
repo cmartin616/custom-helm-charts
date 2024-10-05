@@ -1,72 +1,52 @@
-{{- if .Values.postgresql.enabled -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgresql
+  name: homechart-postgres
+  namespace: {{ .Values.global.namespace | quote }}  # Reference the global namespace
   labels:
     {{- include "homechart.labels" . | nindent 4 }}
 spec:
-  replicas: 2
+  serviceName: homechart-postgres
+  replicas: 1
   selector:
     matchLabels:
-      app: homechart
-      service: postgresql
-  serviceName: postgresql
-  replicas: 1
+      app: homechart-postgres
   template:
     metadata:
-      {{- with .Values.postgresql.statefulset.annotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        app: homechart
-        service: postgresql
+        app: homechart-postgres
+        service: homechart
     spec:
       containers:
-        - name: postgresql
+        - name: {{ .Values.postgresql.statefulset.containerName | quote }}  # Editable container name for PostgreSQL
+          image: {{ .Values.postgresql.statefulset.repository }}:{{ .Values.postgresql.statefulset.tag | quote }}  # Use tag for PostgreSQL
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
           env:
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgresql
-                  key: password
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgresql
-                  key: username
-          image: {{ .Values.postgresql.statefulset.repository }}
-          imagePullPolicy: {{ .Values.postgresql.statefulset.imagePullPolicy }}
-          ports:
-            - containerPort: 5432
-              name: postgresql
+                  name: homechart
+                  key: HOMECHART_postgresql_username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homechart
+                  key: HOMECHART_postgresql_password
+            - name: POSTGRES_DB
+              value: {{ .Values.postgresql.statefulset.config.database | quote }}  # Database name for PostgreSQL from config
           volumeMounts:
-            - name: postgresql
-              mountPath: /var/lib/postgresql/data
-      {{- with .Values.postgresql.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.postgresql.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.postgresql.tolerations }}
-      securityContext:
-        fsGroup: {{ .Values.postgresql.statefulset.uid }}
-        runAsGroup: {{ .Values.postgresql.statefulset.uid }}
-        runAsUser: {{ .Values.postgresql.statefulset.uid }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-  volumeClaimTemplates:
-    - metadata:
-        name: postgresql
-      spec:
-        accessModes: {{ .Values.postgresql.statefulset.storageAccessModes }}
-        storageClassName: {{ .Values.postgresql.statefulset.storageClassName }}
-        resources:
-          requests:
-            storage: {{ .Values.postgresql.statefulset.storageSize }}
-{{- end }}
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data  # Default data directory for PostgreSQL
+      volumes:
+        {{- if .Values.postgresql.statefulset.existingClaim }}
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgresql.statefulset.existingClaim | quote }}  # Reference to existing PVC
+        {{- else }}
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgresql.statefulset.existingClaim | default "postgres-storage" | quote }}  # Optional new PVC if existingClaim not provided
+        {{- end }}

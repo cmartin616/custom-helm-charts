@@ -42,7 +42,9 @@ spec:
             {{- end }}
             {{- if .Values.postgresql.enabled }}
             - name: HOMECHART_postgresql_hostname
-              value: postgresql
+              value: postgresql  # Assuming the StatefulSet service name
+            - name: HOMECHART_postgresql_database
+              value: {{ .Values.postgresql.statefulset.database | quote }}  # Database name from statefulset config
             - name: HOMECHART_postgresql_password
               valueFrom:
                 secretKeyRef:
@@ -70,25 +72,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.homechart.deployment.resources | nindent 12 }}
-        {{- if .Values.postgresql.enabled }}  # Check if PostgreSQL is enabled
-        - name: {{ .Values.postgresql.containerName | quote }}  # Editable container name for PostgreSQL
-          image: {{ .Values.postgresql.repository }}:{{ .Values.postgresql.tag | quote }}  # Use tag for PostgreSQL
-          ports:
-            - name: postgres
-              containerPort: 5432
-              protocol: TCP
-          env:
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: homechart
-                  key: HOMECHART_postgresql_username
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: homechart
-                  key: HOMECHART_postgresql_password
-        {{- end }}
       {{- with .Values.homechart.deployment.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
