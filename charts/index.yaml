@@ -16,7 +16,7 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - charts/homechart-1.0.2.tgz
+    - homechart-1.0.2.tgz
     version: 1.0.2
   - apiVersion: v2
     created: "2024-10-05T14:44:28.9410785-04:00"
@@ -33,6 +33,6 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - charts/homechart-1.0.1.tgz
+    - homechart-1.0.1.tgz
     version: 1.0.1
 generated: "2024-10-05T14:44:28.9410785-04:00"
