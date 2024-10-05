@@ -6,12 +6,13 @@ metadata:
     {{- include "homechart.labels" . | nindent 4 }}
   {{- if .Values.homechart.ingress }}
   annotations:
-    {{- toYaml .annotations | nindent 4 }}
+    {{- toYaml .Values.homechart.ingress.annotations | nindent 4 }}
   {{- end }}
 spec:
-  ingressClassName: {{ .Values.homechart.ingress.ingressClassName | quote }}  # Added quote for safety
+  {{- with .Values.homechart.ingress }}
+  ingressClassName: {{ .ingressClassName | quote }}  # Added quote for safety
   rules:
-  - host: {{ .Values.homechart.ingress.host | quote }}  # Added quote for safety
+  - host: {{ .host | quote }}  # Added quote for safety
     http:
       paths:
       - path: /
@@ -21,9 +22,10 @@ spec:
             name: homechart
             port:
               number: 3000
-  {{- with .Values.homechart.ingress}}
+  {{- if .tls }}
   tls:
     - hosts:
         - {{ .host | quote }}  # Ensure the host matches the rule
       secretName: {{ .tls.secretName | quote }}  # Reference to the TLS secret
+  {{- end }}
   {{- end }}
