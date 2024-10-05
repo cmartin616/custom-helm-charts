@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.postgresql.statefulset.containerName | quote }}  # Editable container name for PostgreSQL
-          image: {{ .Values.postgresql.statefulset.repository }}:{{ .Values.postgresql.statefulset.tag | quote }}  # Use tag for PostgreSQL
+          image: {{ .Values.postgresql.statefulset.repository }}:{{ .Values.postgresql.statefulset.tag}}  # Use tag for PostgreSQL
           ports:
             - name: postgres
               containerPort: 5432
