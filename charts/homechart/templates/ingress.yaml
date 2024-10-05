@@ -4,9 +4,9 @@ metadata:
   name: homechart
   labels:
     {{- include "homechart.labels" . | nindent 4 }}
+  {{- if .Values.homechart.ingress.annotations }}
   annotations:
-    {{- with .Values.homechart.ingress.annotations }}
-    {{ toYaml . | indent 4 }}
+    {{- toYaml .Values.homechart.ingress.annotations | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.homechart.ingress.ingressClassName | quote }}  # Added quote for safety
