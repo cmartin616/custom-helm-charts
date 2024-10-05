@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: homechart
+  namespace: {{ .Values.global.namespace | quote }}  # Reference the global namespace
   labels:
     {{- include "homechart.labels" . | nindent 4 }}
 spec:
@@ -19,13 +20,14 @@ spec:
       labels:
         app: homechart
         service: homechart
+        tag: {{ .Values.homechart.deployment.tag | quote }}  # Tag for homechart
     spec:
       {{- with .Values.homechart.deployment.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: homechart
+        - name: {{ .Values.homechart.deployment.containerName | quote }}  # Editable container name for homechart
           env:
             {{- range $k, $v := .Values.homechart.config.secrets }}
             - name: {{ $k }}
@@ -52,7 +54,7 @@ spec:
                   name: homechart
                   key: HOMECHART_postgresql_username
             {{ end }}
-          image: {{ .Values.homechart.deployment.repository }}
+          image: {{ .Values.homechart.deployment.repository }}:{{ .Values.homechart.deployment.tag | quote }}  # Image for homechart
           imagePullPolicy: {{ .Values.homechart.deployment.imagePullPolicy }}
           ports:
             - name: http
@@ -68,6 +70,25 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.homechart.deployment.resources | nindent 12 }}
+        {{- if .Values.postgresql.enabled }}  # Check if PostgreSQL is enabled
+        - name: {{ .Values.postgresql.containerName | quote }}  # Editable container name for PostgreSQL
+          image: {{ .Values.postgresql.repository }}:{{ .Values.postgresql.tag | quote }}  # Use tag for PostgreSQL
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: homechart
+                  key: HOMECHART_postgresql_username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: homechart
+                  key: HOMECHART_postgresql_password
+        {{- end }}
       {{- with .Values.homechart.deployment.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
