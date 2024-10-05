@@ -16,6 +16,6 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - https://github.com/cmartin616/custom-helm-charts/charts/homechart-1.0.1.tgz
+    - charts/homechart-1.0.1.tgz
     version: 1.0.1
 generated: "2024-10-05T14:27:41.6922819-04:00"
