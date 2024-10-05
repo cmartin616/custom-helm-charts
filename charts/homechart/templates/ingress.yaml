@@ -21,9 +21,9 @@ spec:
             name: homechart
             port:
               number: 3000
-  {{- with .Values.homechart.ingress.tls }}
+  {{- with .Values.homechart.ingress}}
   tls:
     - hosts:
-        - {{ .Values.homechart.ingress.host | quote }}  # Ensure the host matches the rule
-      secretName: {{ .Values.homechart.ingress.tls.secretName | quote }}  # Reference to the TLS secret
+        - {{ .host | quote }}  # Ensure the host matches the rule
+      secretName: {{ .tls.secretName | quote }}  # Reference to the TLS secret
   {{- end }}
