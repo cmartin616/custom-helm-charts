@@ -20,7 +20,7 @@ spec:
       labels:
         app: homechart
         service: homechart
-        tag: {{ .Values.homechart.deployment.tag | quote }}  # Tag for homechart
+        tag: {{ .Values.homechart.deployment.tag }}  # Tag for homechart
     spec:
       {{- with .Values.homechart.deployment.imagePullSecrets }}
       imagePullSecrets:
@@ -56,7 +56,7 @@ spec:
                   name: homechart
                   key: HOMECHART_postgresql_username
             {{ end }}
-          image: {{ .Values.homechart.deployment.repository }}:{{ .Values.homechart.deployment.tag | quote }}  # Image for homechart
+          image: {{ .Values.homechart.deployment.repository }}:{{ .Values.homechart.deployment.tag }}  # Image for homechart
           imagePullPolicy: {{ .Values.homechart.deployment.imagePullPolicy }}
           ports:
             - name: http
