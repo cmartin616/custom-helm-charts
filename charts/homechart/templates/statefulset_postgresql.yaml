@@ -15,7 +15,7 @@ spec:
     metadata:
       labels:
         app: homechart-postgres
-        service: postgres
+        service: homechart
     spec:
       containers:
         - name: {{ .Values.postgresql.statefulset.containerName | quote }}  # Editable container name for PostgreSQL
