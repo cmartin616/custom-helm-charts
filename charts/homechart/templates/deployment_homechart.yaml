@@ -42,7 +42,7 @@ spec:
             {{- end }}
             {{- if .Values.postgresql.enabled }}
             - name: HOMECHART_postgresql_hostname
-              value: postgresql  # Assuming the StatefulSet service name
+              value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}  # Default hostname is "postgresql"
             - name: HOMECHART_postgresql_database
               value: {{ .Values.postgresql.statefulset.database | quote }}  # Database name from statefulset config
             - name: HOMECHART_postgresql_password
