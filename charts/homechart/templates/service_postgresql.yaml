@@ -16,5 +16,5 @@ spec:
       protocol: TCP
       name: postgresql
   selector:
-    app: homechart
-    service: postgresql
+    app: homechart-postgres
+    service: homechart
