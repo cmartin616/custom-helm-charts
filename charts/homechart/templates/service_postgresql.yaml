@@ -3,7 +3,11 @@ kind: Service
 metadata:
   # Default name is "postgresql"
   name:
-    { { .Values.postgresql.statefulset.containerName | default "postgresql" } }
+    {
+      {
+        .Values.postgresql.statefulset.hostname | default "postgresql" | quote,
+      },
+    }
   labels: { { - include "homechart.labels" . | nindent 4 } }
 spec:
   ports:
