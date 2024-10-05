@@ -4,8 +4,8 @@ metadata:
   name: homechart
   labels:
     {{- include "homechart.labels" . | nindent 4 }}
-  {{- with .Values.homechart.ingress.annotations }}
   annotations:
+    {{- with .Values.homechart.ingress.annotations }}
     {{ toYaml . | indent 4 }}
   {{- end }}
 spec:
