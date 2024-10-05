@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   homechart:
   - apiVersion: v2
-    created: "2024-10-05T14:02:09.8727163-04:00"
+    created: "2024-10-05T14:09:42.3370438-04:00"
     description: Run your household with one simple app. Built by families, for families.
     digest: 89e8beb714ea8e0c142cad23ffe2149388704fdd53ed2672e787313d8ede4494
     home: https://homechart.app
@@ -16,6 +16,6 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - https://github.com/cmartin616/custom-helm-charts/homechart-1.0.1.tgz
+    - https://github.com/cmartin616/custom-helm-charts/charts/homechart-1.0.1.tgz
     version: 1.0.1
-generated: "2024-10-05T14:02:09.8722024-04:00"
+generated: "2024-10-05T14:09:42.3365329-04:00"
