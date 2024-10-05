@@ -9,9 +9,9 @@ metadata:
     {{ toYaml . | indent 4 }}
   {{- end }}
 spec:
-  ingressClassName: {{ .Values.homechart.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.homechart.ingress.ingressClassName | quote }}  # Added quote for safety
   rules:
-  - host: {{ .Values.homechart.ingress.host }}
+  - host: {{ .Values.homechart.ingress.host | quote }}  # Added quote for safety
     http:
       paths:
       - path: /
@@ -23,5 +23,7 @@ spec:
               number: 3000
   {{- with .Values.homechart.ingress.tls }}
   tls:
-    {{ toYaml . | indent 4 }}
-  {{- end -}}
+    - hosts:
+        - {{ .Values.homechart.ingress.host | quote }}  # Ensure the host matches the rule
+      secretName: {{ .Values.homechart.ingress.tls.secretName | quote }}  # Reference to the TLS secret
+  {{- end }}
