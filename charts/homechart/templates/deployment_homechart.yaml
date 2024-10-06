@@ -42,7 +42,7 @@ spec:
             {{- end }}
             - name: HOMECHART_APP_ADMINEMAILADDRESSES
               value: {{ .Values.homechart.config.adminEmailAddresses | join "," | quote }}  # Use join to convert array to a string
-            - name: HOMECHART_SIGNUP_DISABLED
+            - name: HOMECHART_APP_SIGNUPDISABLED
               value: {{ .Values.homechart.signupDisabled | toString | quote }}  # Converts boolean to string if needed
 
             {{- if .Values.postgresql.enabled }}
