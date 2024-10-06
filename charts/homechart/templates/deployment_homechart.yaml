@@ -55,12 +55,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: homechart
-                  key: homechart_postgresql_password
+                  key: HOMECHART_postgresql_password
             - name: homechart_postgresql_username
               valueFrom:
                 secretKeyRef:
                   name: homechart
-                  key: homechart_postgresql_username
+                  key: HOMECHART_postgresql_username
             {{- end }}
 
           image: {{ .Values.homechart.deployment.repository }}:{{ .Values.homechart.deployment.tag }}  # Image for homechart
