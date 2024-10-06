@@ -37,13 +37,15 @@ spec:
                   key: {{ $k }}
             {{- end }}
             {{- range $k, $v := .Values.homechart.config.values }}
-              {{- if and (ne $k "homechart_app_adminEmailAddresses") }}
+              {{- if ne $k "homechart_app_adminEmailAddresses" }}
                 - name: {{ $k }}
                   value: {{ $v | quote }}  # Optionally quote the value
               {{- end }}
             {{- end }}
-            - name: homechart_app_adminemailaddresses
+
+            - name: homechart_app_adminEmailAddresses
               value: {{ .Values.homechart.config.values.homechart_app_adminEmailAddresses | join "," | quote }}  # Use join to convert array to a string
+
             {{- if .Values.postgresql.enabled }}
             - name: homechart_postgresql_hostname
               value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}  # Default hostname is "postgresql"
