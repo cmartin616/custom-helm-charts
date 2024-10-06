@@ -36,10 +36,11 @@ spec:
                   name: homechart
                   key: {{ $k }}
             {{- end }}
+
             {{- range $k, $v := .Values.homechart.config.values }}
               {{- if ne $k "homechart_app_adminEmailAddresses" }}
-              - name: {{ $k }}
-                value: {{ $v | quote }}  # Optionally quote the value
+            - name: {{ $k }}
+              value: {{ $v | quote }}  # Optionally quote the value
               {{- end }}
             {{- end }}
 
@@ -48,9 +49,9 @@ spec:
 
             {{- if .Values.postgresql.enabled }}
             - name: homechart_postgresql_hostname
-              value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}  # Default hostname is "postgresql"
+              value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}
             - name: homechart_postgresql_database
-              value: {{ .Values.postgresql.statefulset.database | quote }}  # Database name from statefulset config
+              value: {{ .Values.postgresql.statefulset.database | quote }}
             - name: homechart_postgresql_password
               valueFrom:
                 secretKeyRef:
@@ -62,6 +63,7 @@ spec:
                   name: homechart
                   key: homechart_postgresql_username
             {{ end }}
+
           image: {{ .Values.homechart.deployment.repository }}:{{ .Values.homechart.deployment.tag }}  # Image for homechart
           imagePullPolicy: {{ .Values.homechart.deployment.imagePullPolicy }}
           ports:
