@@ -45,7 +45,7 @@ spec:
             - name: homechart_app_adminEmailAddresses
               value: {{ .Values.homechart.config.values.homechart_app_adminEmailAddresses | join "," | quote }}
             - name: homechart_app_signupDisabled
-              value: {{ .Values.homechart.config.values.homechart_app_signupDisabled }}
+              value: {{ .Values.homechart.config.values.homechart_app_signupDisabled | quote }}
             {{- if .Values.postgresql.enabled }}
             - name: homechart_postgresql_hostname
               value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}
