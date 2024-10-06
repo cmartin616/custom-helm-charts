@@ -40,11 +40,6 @@ spec:
             - name: {{ $k }}
               value: {{ $v }}
             {{- end }}
-            - name: HOMECHART_APP_ADMINEMAILADDRESSES
-              value: {{ .Values.homechart.config.adminEmailAddresses | join "," | quote }}  # Use join to convert array to a string
-            - name: HOMECHART_APP_SIGNUPDISABLED
-              value: {{ .Values.homechart.config.signupDisabled | toString | quote }}  # Converts boolean to string if needed
-
             {{- if .Values.postgresql.enabled }}
             - name: HOMECHART_postgresql_hostname
               value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}  # Default hostname is "postgresql"
