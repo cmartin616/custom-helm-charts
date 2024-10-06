@@ -38,8 +38,8 @@ spec:
             {{- end }}
             {{- range $k, $v := .Values.homechart.config.values }}
               {{- if ne $k "homechart_app_adminEmailAddresses" }}
-                - name: {{ $k }}
-                  value: {{ $v | quote }}  # Optionally quote the value
+              - name: {{ $k }}
+                value: {{ $v | quote }}  # Optionally quote the value
               {{- end }}
             {{- end }}
 
