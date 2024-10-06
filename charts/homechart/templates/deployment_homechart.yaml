@@ -36,17 +36,16 @@ spec:
                   name: homechart
                   key: {{ $k }}
             {{- end }}
-
             {{- range $k, $v := .Values.homechart.config.values }}
-              {{- if ne $k "homechart_app_adminEmailAddresses" }}
+              {{- if and (ne $k "homechart_app_adminEmailAddresses") (ne $k "homechart_app_signupDisabled") }}
             - name: {{ $k }}
-              value: {{ $v | quote }}  # Optionally quote the value
+              value: {{ $v | quote }}
               {{- end }}
             {{- end }}
-
             - name: homechart_app_adminEmailAddresses
-              value: {{ .Values.homechart.config.values.homechart_app_adminEmailAddresses | join "," | quote }}  # Use join to convert array to a string
-
+              value: {{ .Values.homechart.config.values.homechart_app_adminEmailAddresses | join "," | quote }}
+            - name: homechart_app_signupDisabled
+              value: {{ .Values.homechart.config.values.homechart_app_signupDisabled }}
             {{- if .Values.postgresql.enabled }}
             - name: homechart_postgresql_hostname
               value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}
@@ -62,7 +61,7 @@ spec:
                 secretKeyRef:
                   name: homechart
                   key: homechart_postgresql_username
-            {{ end }}
+            {{- end }}
 
           image: {{ .Values.homechart.deployment.repository }}:{{ .Values.homechart.deployment.tag }}  # Image for homechart
           imagePullPolicy: {{ .Values.homechart.deployment.imagePullPolicy }}
