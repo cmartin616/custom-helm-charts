@@ -42,24 +42,23 @@ spec:
                   value: {{ $v | quote }}  # Optionally quote the value
               {{- end }}
             {{- end }}
-
             - name: homechart_app_adminemailaddresses
-              value: {{ .Values.homechart.config.adminEmailAddresses | join "," | quote }}  # Use join to convert array to a string
+              value: {{ .Values.homechart.config.values.adminEmailAddresses | join "," | quote }}  # Use join to convert array to a string
             {{- if .Values.postgresql.enabled }}
-            - name: HOMECHART_postgresql_hostname
+            - name: homechart_postgresql_hostname
               value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}  # Default hostname is "postgresql"
-            - name: HOMECHART_postgresql_database
+            - name: homechart_postgresql_database
               value: {{ .Values.postgresql.statefulset.database | quote }}  # Database name from statefulset config
-            - name: HOMECHART_postgresql_password
+            - name: homechart_postgresql_password
               valueFrom:
                 secretKeyRef:
                   name: homechart
-                  key: HOMECHART_postgresql_password
-            - name: HOMECHART_postgresql_username
+                  key: homechart_postgresql_password
+            - name: homechart_postgresql_username
               valueFrom:
                 secretKeyRef:
                   name: homechart
-                  key: HOMECHART_postgresql_username
+                  key: homechart_postgresql_username
             {{ end }}
           image: {{ .Values.homechart.deployment.repository }}:{{ .Values.homechart.deployment.tag }}  # Image for homechart
           imagePullPolicy: {{ .Values.homechart.deployment.imagePullPolicy }}
