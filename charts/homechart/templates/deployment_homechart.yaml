@@ -50,7 +50,7 @@ spec:
             - name: homechart_postgresql_hostname
               value: {{ .Values.postgresql.statefulset.hostname | default "postgresql" | quote }}
             - name: homechart_postgresql_database
-              value: {{ .Values.postgresql.statefulset.database | quote }}
+              value: {{ .Values.postgresql.statefulset.config.database | quote }}
             - name: homechart_postgresql_password
               valueFrom:
                 secretKeyRef:
