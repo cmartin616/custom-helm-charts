@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   homechart:
   - apiVersion: v2
-    created: "2024-12-31T14:13:21.7941046-05:00"
+    created: "2024-12-31T14:45:05.2135751-05:00"
     description: Run your household with one simple app. Built by families, for families.
     digest: f21b41a738eddc4920262966e662a007e4e3e83e7f370bf1aafaef091fc2c6f7
     home: https://homechart.app
@@ -16,10 +16,10 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - https://github.com/cmartin616/custom-helm-charts/charts/homechart-1.0.4.tgz
+    - homechart-1.0.4.tgz
     version: 1.0.4
   - apiVersion: v2
-    created: "2024-12-31T14:13:21.7931036-05:00"
+    created: "2024-12-31T14:45:05.2135751-05:00"
     description: Run your household with one simple app. Built by families, for families.
     digest: f2fcd0b992320baedecb1e47fe18e5058578ce24182c99d0d709937e863cb4c4
     home: https://homechart.app
@@ -33,10 +33,10 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - https://github.com/cmartin616/custom-helm-charts/charts/homechart-1.0.3.tgz
+    - homechart-1.0.3.tgz
     version: 1.0.3
   - apiVersion: v2
-    created: "2024-12-31T14:13:21.7931036-05:00"
+    created: "2024-12-31T14:45:05.213063-05:00"
     description: Run your household with one simple app. Built by families, for families.
     digest: 7f59cda63e0a8dbc7511f60ae538abc9de547bd1cf2223121e5e079ea4828fd3
     home: https://homechart.app
@@ -50,10 +50,10 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - https://github.com/cmartin616/custom-helm-charts/charts/homechart-1.0.2.tgz
+    - homechart-1.0.2.tgz
     version: 1.0.2
   - apiVersion: v2
-    created: "2024-12-31T14:13:21.7921017-05:00"
+    created: "2024-12-31T14:45:05.2125372-05:00"
     description: Run your household with one simple app. Built by families, for families.
     digest: 2786f36b94c7adcf8a455978fe8348fd46df08d741c8c4ec09b656e31cabdcd0
     home: https://homechart.app
@@ -67,6 +67,6 @@ entries:
     sources:
     - https://github.com/candiddev/homechart
     urls:
-    - https://github.com/cmartin616/custom-helm-charts/charts/homechart-1.0.1.tgz
+    - homechart-1.0.1.tgz
     version: 1.0.1
-generated: "2024-12-31T14:13:21.7921017-05:00"
+generated: "2024-12-31T14:45:05.2120343-05:00"
