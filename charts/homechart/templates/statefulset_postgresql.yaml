@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: homechart-postgres
-  namespace: {{ .Values.global.namespace | quote }}  # Reference the global namespace
+  namespace: {{ .Values.global.namespace | default "default" }}  # Reference the global namespace
   labels:
     {{- include "homechart.labels" . | nindent 4 }}
 spec:
